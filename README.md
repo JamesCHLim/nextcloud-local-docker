@@ -9,3 +9,7 @@
 Good for local network server, not recommended for public server.
 
 If using public server, consider nginx proxy with let's encrypt
+
+## Todo
+
+[ ] Integrate Redis

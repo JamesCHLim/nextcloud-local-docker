@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+
+  # Nextcloud instance
+  nextcloud:
+    build: .
+    ports:
+      - 5500:80
+    restart: always
+    volumes:
+      - ./nextcloud:/var/www/html
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: nextcloud
+    depends_on:
+      - db
+
+  # Nextcloud using mariadb database
+  db:
+    image: mariadb:10.5.5
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - ./mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: qwer
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: nextcloud
